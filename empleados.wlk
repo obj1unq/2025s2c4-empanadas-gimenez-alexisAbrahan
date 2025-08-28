@@ -1,3 +1,4 @@
+import wollok.vm.*
 //Escribir aqui los objetos
 object gimenez{
 
@@ -18,8 +19,6 @@ object gimenez{
 object baigorria {
   var empanadasVendidas = 0
   const valorDeEmpanadas = 15
-  var sueldo = empanadasVendidas * valorDeEmpanadas
-  var dinero = 0
   var dineroCobradoTotal = 0
  
   // setter
@@ -28,12 +27,12 @@ object baigorria {
   }
  // Getter
     method sueldo() {
-    return sueldo
+    return empanadasVendidas * valorDeEmpanadas
   }
   // Setter
   method cobrarSueldo() {
-    dinero = dinero + sueldo
-    dineroCobradoTotal = dineroCobradoTotal + sueldo
+    //dinero = dinero + self.sueldo()
+    dineroCobradoTotal = dineroCobradoTotal + self.sueldo()
 
   }
   // Getter
@@ -43,9 +42,22 @@ object baigorria {
 }
 
 object galvan {
-  var sueldo = 150000
+  var sueldo = 15000
   var dinero = 0
-  var dineroCobradoTotal = 0
+  var deuda = 0
+
+
+  method gastar(gasto){
+    if (gasto >= dinero){
+      deuda = deuda + (gasto-dinero)
+      dinero = 0 
+    }
+
+    else {dinero = dinero - gasto}
+    
+
+  }
+
   // Setter
   method sueldo(nuevoSueldo) {
     sueldo = nuevoSueldo
@@ -57,13 +69,30 @@ object galvan {
   }
   // Setter
   method cobrarSueldo() {
-    dinero = dinero + sueldo
-    dineroCobradoTotal = dineroCobradoTotal + sueldo
+
+    if (deuda>0 and sueldo>deuda){
+      dinero = dinero - deuda + sueldo
+      deuda = 0
+    }
+    else if (deuda>0 and dinero<deuda){
+      deuda = deuda - sueldo
+    }
+
+    else {dinero = dinero + sueldo}
+    
 
   }
   // Getter
   method totalCobrado() {
-    return dineroCobradoTotal
+    return dinero
+  }
+    // Getter
+  method deuda() {
+    return deuda
+  }
+      // Getter
+  method dinero() {
+    return dinero
   }
 
 }

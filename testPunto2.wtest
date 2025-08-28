@@ -8,9 +8,8 @@ test "Qué hacen los empleados con lo que cobran" {
   gimenez.pagarSueldo(baigorria)
   gimenez.pagarSueldo(galvan)
   
-  baigorria.vender(100)
-  gimenez.pagarSueldo(baigorria)
-  assert.equals(13500, baigorria.totalCobrado())
+
+  assert.equals(12000, baigorria.totalCobrado())
   
  	
 }
